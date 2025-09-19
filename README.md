@@ -19,7 +19,7 @@ geom_segment(aes(x = lwr_bound_axis, xend = fake_long_max, y = y_axis_line + y_o
 ##### axis ticks
 geom_segment(data = data.frame(x = elev_pos), aes(x = x, xend = x, y = y_axis_line + y_offset, yend = y_axis_line + y_offset - 0.05), inherit.aes = FALSE, linewidth = 0.4) +
 ##### labels
-geom_text(data = data.frame(x = elev_pos, lab = elev_breaks), aes(x = x, y = y_axis_line + y_offset - 0.10, label = lab), inherit.aes = FALSE, size = 3) + 
+geom_text(data = data.frame(x = elev_pos, lab = elev_breaks), aes(x = x, y = y_axis_line + y_offset - 0.10, label = lab), inherit.aes = FALSE, size = 2.5) + 
 ##### axis title
 annotate("text", x = mean(c(lwr_bound_axis, fake_long_max)), y = y_axis_line + y_offset - 0.25, label = "Elevation (m)", size = 3.2, fontface = "bold")
 
