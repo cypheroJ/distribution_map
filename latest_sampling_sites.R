@@ -173,7 +173,7 @@ ggplot() +
   # labels
   geom_text(data = data.frame(x = elev_pos, lab = elev_breaks),
             aes(x = x, y = y_axis_line + y_offset - 0.10, label = lab),
-            inherit.aes = FALSE, size = 3
+            inherit.aes = FALSE, size = 2.5
   ) +
   # axis title
   annotate("text",
@@ -215,3 +215,4 @@ ggplot() +
 
 ggsave(filename = "ero_map_w_alt.svg", plot = map, dpi = 300, bg = "transparent")
 ggsave(filename = "ero_map_w_alt.png", plot = map, dpi = 300, bg = "transparent")
+
