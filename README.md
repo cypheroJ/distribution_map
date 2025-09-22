@@ -30,24 +30,24 @@ annotate("text", x = mean(c(lwr_bound_axis, fake_long_max)), y = y_axis_line + y
 
 This section is for creating the secondary x-axis for the elevation profile.
 
-# **----========Section Break========----**
+# **========Section Break========**
 
 For the theme, you can modify it based on your preferences and also your computer resolution.
-  theme(
-    axis.text = element_text(color = "#000000", face = "bold"),
-    axis.title = element_blank(),
-    legend.background = element_blank(),
-    legend.key.size = unit(0.5, "cm"),
-    legend.position = "inside",
-    legend.position.inside = c(0.00, 1.00),
-    legend.justification = c("left", "top"),
-    legend.box.just = "right",
-    legend.title = element_blank(),
-    panel.background = element_rect(fill = 'transparent'),
-    panel.border = element_rect(fill = 'transparent'),
-    panel.grid.major = element_blank(),
-    plot.background = element_rect(fill = 'transparent', color = NA)
-  )
+  theme(  
+    axis.text = element_text(color = "#000000", face = "bold"),  
+    axis.title = element_blank(),  
+    legend.background = element_blank(),  
+    legend.key.size = unit(0.5, "cm"),  
+    legend.position = "inside",  
+    legend.position.inside = c(0.00, 1.00),  
+    legend.justification = c("left", "top"),  
+    legend.box.just = "right",  
+    legend.title = element_blank(),  
+    panel.background = element_rect(fill = 'transparent'),  
+    panel.border = element_rect(fill = 'transparent'),  
+    panel.grid.major = element_blank(),  
+    plot.background = element_rect(fill = 'transparent', color = NA)  
+  )  
 
   
 It is easy to follow, I think xD
