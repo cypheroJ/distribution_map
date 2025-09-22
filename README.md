@@ -32,7 +32,7 @@ This section is for creating the secondary x-axis for the elevation profile.
 
 # **========Section Break========**
 
-For the theme, you can modify it based on your preferences and also your computer resolution.
+For the theme, you can modify it based on your preferences and also your computer resolution.  
   theme(  
     axis.text = element_text(color = "#000000", face = "bold"),  
     axis.title = element_blank(),  
