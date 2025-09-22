@@ -3,6 +3,11 @@ plot sampling sites on a map and an elevation profile
 
 Follow the script, prepare your input files, and then keep pressing run :)
 
+# **----Link of the TIFF file----**
+https://portal.opentopography.org/raster?opentopoID=OTSRTM.082015.4326.1
+You can manually enter the coordinates according to your specific needs.
+The bound (116.5, 20.5, 122.2, 26.4) includes Dongsha Island, the Matsu Islands, the Kinmen Islands, Taiwan Island, Green Island, and the Orchid Islands.
+
 # **----Things to keep in mind----**
 
 The plot may vary for different users; you may need to adjust it accordingly.
@@ -25,7 +30,7 @@ annotate("text", x = mean(c(lwr_bound_axis, fake_long_max)), y = y_axis_line + y
 
 This section is for creating the secondary x-axis for the elevation profile.
 
-========Section Break========
+# **----========Section Break========----**
 
 For the theme, you can modify it based on your preferences and also your computer resolution.
   theme(
