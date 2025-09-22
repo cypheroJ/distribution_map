@@ -30,6 +30,12 @@ annotate("text", x = mean(c(lwr_bound_axis, fake_long_max)), y = y_axis_line + y
 
 This section is for creating the secondary x-axis for the elevation profile.
 
+# **Resolution selection for map** #
+geom_spatraster(data = elv_masked, maxcell = 3.8e7)  
+You can try geom_spatraster(data = elv_masked) <SpatRaster> resampled to 501120 cells.  
+maxcell = 3.8e7 <SpatRaster> resampled to 38008320 cells.  
+or maxcell = 1e6 or lower or higher (not more than 3.8e7).  
+
 # **========Section Break========**
 
 For the theme, you can modify it based on your preferences and also your computer resolution.  
