@@ -4,9 +4,9 @@ plot sampling sites on a map and an elevation profile
 Follow the script, prepare your input files, and then keep pressing run :)
 
 # **----Link of the TIFF file----**
-https://portal.opentopography.org/raster?opentopoID=OTSRTM.082015.4326.1
-<br.>You can manually enter the coordinates according to your specific needs.
-<br.>The bound (116.5, 20.5, 122.2, 26.4) includes Dongsha Island, the Matsu Islands, the Kinmen Islands, Taiwan Island, Green Island, and the Orchid Islands.
+https://portal.opentopography.org/raster?opentopoID=OTSRTM.082015.4326.1  
+You can manually enter the coordinates according to your specific needs.  
+The bound (116.5, 20.5, 122.2, 26.4) includes Dongsha Island, the Matsu Islands, the Kinmen Islands, Taiwan Island, Green Island, and the Orchid Islands.
 
 # **----Things to keep in mind----**
 
