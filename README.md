@@ -7,7 +7,7 @@ Plot haplotypes on a map and an elevation profile
 Files provided for instructions:
 1. haplo_co1.fasta
 2. haplo_pop.csv
-3. samp_site.R
+3. samp_site.R 
 You can follow the files that I provided and modify them for your own purposes.
 
 
