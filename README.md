@@ -8,7 +8,7 @@ Files provided for instructions:
 1. haplo_co1.fasta
 2. haplo_pop.csv
 3. samp_site.R
-<br>You can follow the files that I provided and modify them for your own purposes.
+You can follow the files that I provided and modify them for your own purposes.
 
 
 # **----Link of the shp files----**
