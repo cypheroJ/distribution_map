@@ -1,12 +1,28 @@
-# distribution_map
-plot sampling sites on a map and an elevation profile
+# hap_map.R
+Plot haplotypes on a map and an elevation profile
 
-Follow the script, prepare your input files, and then keep pressing run :)
+<img width="2940" height="1840" alt="image" src="https://github.com/user-attachments/assets/a55527bf-cacb-4fde-af6e-96765ce5d208" />
+
+
+Files provided for instructions:
+1. haplo_co1.fasta
+2. haplo_pop.csv
+3. samp_site.R
+You can follow the files that I provided and modify them for your own purposes.
+
+
+# **----Link of the shp files----**
+https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0
+This link provides the country border of Taiwan, including islands from South China Sea, Kinmen, Matsu (Lienchiang County), Penghu, Orchid Islands, Green Island, and the main island.
+
 
 # **----Link of the TIFF file----**
 https://portal.opentopography.org/raster?opentopoID=OTSRTM.082015.4326.1  
 You can manually enter the coordinates according to your specific needs.  
 The bound (116.5, 20.5, 122.2, 26.4) includes Dongsha Island, the Matsu Islands, the Kinmen Islands, Taiwan Island, Green Island, and the Orchid Islands.
+We will need two bounds if we have the data from the South China Sea islands.
+(116.5, 21.45014, 124.561, 26.38542) & (114.359, 10.37153, 116.9999, 21.45014)
+
 
 # **----Things to keep in mind----**
 
@@ -38,7 +54,11 @@ or maxcell = 1e6 or lower or higher (not more than 3.8e7).
 
 # **========Section Break========**
 
-For the theme, you can modify it based on your preferences and also your computer resolution.  
+For the scalebar, you can modify it by changing the location:
+"br" bottom-right, "bl" bottom-left, "tr" top-right, "tl" top-left
+annotation_scale(location = "br", width_hint = 0.3, text_cex = 0.8, line_width = 0.4)
+
+For the theme, you can modify it based on your preferences and computer resolution.  
   theme(  
     axis.text = element_text(color = "#000000", face = "bold"),  
     axis.title = element_blank(),  
