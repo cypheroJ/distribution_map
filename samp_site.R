@@ -56,28 +56,14 @@ sites <- sites %>%
   )
 
 tw <- st_transform(st_read("shp/COUNTY_MOI_1140318.shp"), crs = "+proj=longlat +datum=WGS84 +no_defs")
-#https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0
-#tw <- gadm("Taiwan", level = 2, version = "latest", resolution = 1, path = getwd())
 tw_sf <- st_as_sf(tw)
 tw_main <- tw_sf %>%
   filter(!COUNTYENG %in% tw_sf$COUNTYENG[c(1, 14, 18)])
-tw_mt <- tw_sf %>%
-  filter(COUNTYENG %in% tw_sf$COUNTYENG[1])
-tw_km <- tw_sf %>%
-  filter(COUNTYENG %in% tw_sf$COUNTYENG[14])
-tw_ph <- tw_sf %>%
-  filter(COUNTYENG %in% tw_sf$COUNTYENG[18])
-tw_isle <- st_crop(tw_main, st_bbox(c(
+taiwan_main_box <- c(
   xmin = 119.92, xmax = 122.22, 
-  ymin = 21.83, ymax = 25.65), crs = st_crs(tw_sf)))
-dongsha_isle <- st_crop(tw_main, st_bbox(c(
-  xmin = 116.70, xmax = 116.75, 
-  ymin = 20.68, ymax = 20.73), crs = st_crs(tw_sf)))
-taiwan_box <- c(xmin = 114.3593, xmax = 124.5612, ymin = 10.37135, ymax = 26.38528) 
-elv <- rast("output_SRTMGL1.tif") #Taiwan elevation with 1 arc-second resolution
-#116.5, 21.4499, 124.5612, 26.38528
-
-#### Run this if you have multiple rasters to combine ####----
+  ymin = 21.83, ymax = 25.65)
+tw_isle <- st_crop(tw_main, st_bbox(taiwan_main_box, crs = st_crs(tw_sf)))
+elv <- rast("output_SRTMGL1.tif")
 elv2 <- rast("output_SRTMGL1-2.tif")
 trgt_res <- res(elv2)
 trgt_ext <- union(ext(elv), ext(elv2))
@@ -89,26 +75,8 @@ trgt_rast <- rast(
 elv_resampled  <- resample(elv,  trgt_rast, method = "bilinear")
 elv2_resampled <- resample(elv2, trgt_rast, method = "bilinear")
 elv_tw <- cover(elv2_resampled, elv_resampled)
-#####----
-
-#############################
-# ELEVATION DATA GENERATION #
-#############################
-#elev_tw <- crop(elv_tw, ext(taiwan_box))
-#elv_masked <- mask(elev_tw, tw)
-#elvMax_df <- lat_elev_profile(elv_masked)
-
 elev_main <- crop(elv_tw, ext(tw_main_box))
-elev_matsu <- crop(elv_tw, ext(tw_mt))
-elev_kinmen <- crop(elv_tw, ext(tw_km))
-elev_penghu <- crop(elv_tw, ext(tw_ph))
-elev_dongsha <- crop(elv_tw, ext(dongsha_box))
 elv_main_masked <- mask(elev_main, tw_main)
-elv_mt_masked <- mask(elev_matsu, tw_main)
-elv_km_masked <- mask(elev_kinmen, tw_main)
-elv_ph_masked <- mask(elev_penghu, tw_main)
-elv_ds_masked <- mask(elev_dongsha, tw_main)
-
 elvMax_df <- lat_elev_profile(elv_main_masked)
 elvMax <- elvMax_df %>%
   mutate(
@@ -141,153 +109,3 @@ elev_pos <- to_fake_long(elev_breaks)
 y_axis_line <- 20.35
 y_offset <- 0.2
 yend <- y_axis_line + y_offset + 5.2
-
-################
-# MAP PLOTTING #
-################
-#ggplot() +
-#  geom_spatraster(data = elv_main_masked) + #, maxcell = 3.8e7) +
-#  scale_fill_gradientn(
-#    colours = alt_colors(100), 
-#    na.value = NA, 
-#    guide = guide_colorbar(
-#      ticks.colour = "#000000"
-#    )
-#  ) +
-#  geom_sf(data = tw_isle, color = "black", fill = NA) +
-#  geom_point(
-#    data = sites, aes(x = Longitude, y = Latitude), size = 0.8
-#  ) +
-#  geom_point(
-#    data = sites_scaled, aes(x = fake_long, y = Latitude), size = 0.8
-#  ) +
-#  coord_sf(crs = 4326, xlim = c(119, 124.5), ylim = c(20.0, 26.0), expand = FALSE) +
-#  # --- custom elevation axis ---
-#  # outer vertical grid line for the elevation profile
-#  geom_segment(data = data.frame(x = lwr_bound_axis),
-#               aes(x = x,
-#                   y = y_axis_line + y_offset, 
-#                   yend = yend),   # extend up to plot top (adjust if needed)
-#               inherit.aes = FALSE, 
-#               color = "#000000", 
-#               linewidth = 0.4
-#  ) + 
-#  #vertical grid lines for the elevation profile
-#  geom_segment(data = data.frame(x = elev_pos),
-#               aes(x = x, xend = x,
-#                   y = y_axis_line + y_offset, 
-#                   yend = yend),
-#               inherit.aes = FALSE, 
-#               color = "#9e9e9e", 
-#               linewidth = 0.4,
-#               alpha = 0.3
-#  ) + 
-#  geom_path(data = elvMax_scaled, aes(x = fake_long, y = latitude, group = 1),
-#            color = "#3f3f3f", linewidth = 0.4) +
-#  # axis line spanning only the fake_long strip
-#  geom_segment(aes(x = lwr_bound_axis, xend = fake_long_max,
-#                   y = y_axis_line + y_offset, yend = y_axis_line + y_offset),
-#               linewidth = 0.4
-#  ) +
-#  # ticks
-#  geom_segment(data = data.frame(x = elev_pos),
-#               aes(x = x, xend = x,
-#                   y = y_axis_line + y_offset,
-#                   yend = y_axis_line + y_offset - 0.05),
-#               inherit.aes = FALSE, linewidth = 0.4
-#  ) +
-#  # labels
-#  geom_text(data = data.frame(x = elev_pos, lab = elev_breaks),
-#            aes(x = x, y = y_axis_line + y_offset - 0.10, label = lab),
-#            inherit.aes = FALSE, size = 2.5
-#  ) +
-#  # axis title
-#  annotate("text",
-#           x = mean(c(lwr_bound_axis, fake_long_max)),
-#           y = y_axis_line + y_offset - 0.25,
-#           label = "Elevation (m)",
-#           size = 3.2, fontface = "bold"
-#  ) +
-#  scale_x_continuous(
-#    limits = c(119, 125),
-#    breaks = c(119, 120, 121, 122)
-#  ) +
-#  scale_y_continuous(
-#    limits = c(20.3, 26.0),
-#    breaks = c(21, 22, 23, 24, 25, 26)
-#  ) +
-#  annotation_scale(
-#    location = "bl",
-#    width_hint = 0.3,
-#    text_cex = 0.8,
-#    line_width = 0.4
-#  ) +
-#  theme(
-#    axis.text = element_text(color = "#000000", face = "bold"),
-#    axis.title = element_blank(),
-#    legend.background = element_blank(),
-#    legend.key.size = unit(0.5, "cm"),
-#    legend.position = "inside",
-#    legend.position.inside = c(0.00, 1.00),
-#    legend.justification = c("left", "top"),
-#    legend.box.just = "right",
-#    legend.title = element_blank(),
-#    panel.background = element_rect(fill = 'transparent'),
-#    panel.border = element_rect(fill = 'transparent'),
-#    panel.grid.major = element_blank(),
-#    plot.background = element_rect(fill = 'transparent', color = NA)
-#  )
-
-##############
-# Extra Plot #
-##############
-
-## === Create the main map ===
-#main_map <- ggplot() +
-#  geom_spatraster(data = elv_masked) +
-#  scale_fill_gradientn(
-#    colours = alpha(alt_colors(100), 0.7),
-#    na.value = NA,
-#    guide = guide_colorbar(ticks.colour = "#000000")
-#  ) +
-#  geom_sf(data = tw_sf, color = "black", fill = NA) +
-#  coord_sf(crs = 4326, xlim = c(117, 124.5), ylim = c(20, 26.8), expand = FALSE) +
-#  theme_minimal()
-#
-## === Create the inset map ===
-#dongsha_map <- ggplot() +
-#  geom_sf(data = tw_sf, color = "black", fill = "grey90") +
-#  geom_sf(data = tw_sf, color = "black", fill = NA) +
-#  coord_sf(crs = 4326, xlim = c(116.70, 116.75), ylim = c(20.68, 20.73), expand = FALSE) +
-#  theme_void() +
-#  theme(
-#    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6)
-#  )
-#
-#kinmen_map <- ggplot() +
-#  geom_sf(data = tw_sf, color = "black", fill = "grey90") +
-#  geom_sf(data = tw_sf, color = "black", fill = NA) +
-#  coord_sf(crs = 4326, xlim = c(118.13, 118.44), ylim = c(24.37, 24.53), expand = FALSE) +
-#  theme_void() +
-#  theme(
-#    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6)
-#  )
-#
-## === Add inset inside the main plot ===
-#main_map +
-#  annotation_custom(
-#    grob = ggplotGrob(dongsha_map),
-#    xmin = 117.1, xmax = 118.1,   # position of inset box inside the map (tweak)
-#    ymin = 20.1, ymax = 22.1      # adjust for where you want it placed
-#  ) +
-#  annotate("rect", xmin = 116, xmax = 117, ymin = 20, ymax = 21,
-#           colour = "black", fill = NA, linewidth = 0.4
-#  ) +
-#  annotation_custom(
-#    grob = ggplotGrob(kinmen_map),
-#    xmin = 118.2, xmax = 120.2,   # position of inset box inside the map (tweak)
-#    ymin = 22.2, ymax = 24.2      # adjust for where you want it placed
-#  ) +
-#  annotate("rect", xmin = 116, xmax = 117, ymin = 20, ymax = 21,
-#           colour = "black", fill = NA, linewidth = 0.4
-#  )
