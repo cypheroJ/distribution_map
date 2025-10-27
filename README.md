@@ -7,13 +7,13 @@ Plot haplotypes on a map and an elevation profile
 Files provided for instructions:
 1. haplo_co1.fasta
 2. haplo_pop.csv
-3. samp_site.R 
-You can follow the files that I provided and modify them for your own purposes.
+3. samp_site.R
+<br>You can follow the files that I provided and modify them for your own purposes.
 
 
 # **----Link of the shp files----**
-https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0 
-This link provides the country border of Taiwan, including islands from South China Sea, Kinmen, Matsu (Lienchiang County), Penghu, Orchid Islands, Green Island, and the main island.
+https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0
+<br>This link provides the country border of Taiwan, including islands from South China Sea, Kinmen, Matsu (Lienchiang County), Penghu, Orchid Islands, Green Island, and the main island.
 
 
 # **----Link of the TIFF file----**
