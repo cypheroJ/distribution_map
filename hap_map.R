@@ -188,7 +188,7 @@ midpoints <- edges_df %>%
 # Plot #
 ########
 
-ggplot() +
+main_haplo <- ggplot() +
   # === Elevation base ===
   geom_spatraster(data = elv_main_masked) + #, maxcell = 3.8e7) +
   scale_fill_gradientn(
@@ -273,8 +273,8 @@ ggplot() +
   #) +
   # === axes, theme, scale bar ===
   scale_x_continuous(limits = c(119, 125), breaks = c(120, 121, 122)) + # scale_x_continuous(limits = c(116.4, 125), breaks = c(118, 120, 122)) +
-  scale_y_continuous(limits = c(20.3, 26.0), breaks = c(21, 22, 23, 24, 25)) + # scale_y_continuous(limits = c(20.3, 26.5), breaks = c(21, 22, 23, 24, 25, 26)) +
-  annotation_scale(location = "bl", width_hint = 0.3, text_cex = 0.8, line_width = 0.4) +
+  scale_y_continuous(limits = c(19.0, 26.0), breaks = c(21, 22, 23, 24, 25)) + # scale_y_continuous(limits = c(20.3, 26.5), breaks = c(21, 22, 23, 24, 25, 26)) +
+  annotation_scale(location = "br", width_hint = 0.3, text_cex = 0.8, line_width = 0.4) +
   theme(
     axis.text = element_text(color = "#000000", face = "bold", size = 12),
     axis.title = element_blank(),
@@ -296,7 +296,7 @@ ggplot() +
 #############################################
 
 hap_order <- c("H4", "H3")
-ggplot() + 
+sub_haplo <- ggplot() + 
   # Edges (haplotype links) 
   geom_segment(
     data = subset(edges_df, (x == xend & y == yend)),
@@ -339,3 +339,17 @@ ggplot() +
     panel.grid = element_blank(), 
     plot.background = element_blank() 
     )
+
+####################
+# Plot Combination #
+####################
+
+main_haplo +
+  annotation_custom(
+    grob = ggplotGrob(sub_haplo),
+    xmin = 119.1, xmax = 120.1,   # position of inset box inside the map (tweak)
+    ymin = 20.1, ymax = 21.1      # adjust for where you want it placed
+  ) +
+  annotate("rect", xmin = 119.1, xmax = 120.1, ymin = 20.1, ymax = 21.1,
+           colour = "black", fill = NA, linewidth = 0.4
+  )
