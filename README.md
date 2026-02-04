@@ -26,7 +26,8 @@ We will need two bounds if we have the data from the South China Sea islands.
 
 # **----Things to keep in mind----**
 
-The plot may vary for different users; you may need to adjust it accordingly.
+1. The script can generate main and sub-plots separatedly, you may need to edit them manually in Inkscape for your needs. 
+2. The plot may vary for different users; you may need to adjust it accordingly.
 
 Especially:
 ##### outer vertical grid line for the elevation profile
@@ -52,7 +53,7 @@ You can try geom_spatraster(data = elv_masked) <SpatRaster> resampled to 501120 
 maxcell = 3.8e7 <SpatRaster> resampled to 38008320 cells.  
 or maxcell = 1e6 or lower or higher (not more than 3.8e7).  
 
-# **========Section Break========**
+# *========Section Break========*
 
 For the scalebar, you can modify it by changing the location:
 "br" bottom-right, "bl" bottom-left, "tr" top-right, "tl" top-left
