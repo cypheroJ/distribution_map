@@ -1,6 +1,4 @@
-#setwd("/Users/guanjie/Desktop/Labwork/Research_Data/")
-#setwd("/Users/fs/Downloads/GuanJie/")
-#setwd("/Users/guanjie/huanglab.mycoentre@gmail.com - Google Drive/Other computers/My Computer/GuanJie")
+
 
 if (!require(devtools)) install.packages("devtools")
 if (!require(dplyr)) install.packages("dplyr")
@@ -109,3 +107,4 @@ elev_pos <- to_fake_long(elev_breaks)
 y_axis_line <- 20.35
 y_offset <- 0.2
 yend <- y_axis_line + y_offset + 5.2
+
